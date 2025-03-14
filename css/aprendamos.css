@@ -1,0 +1,395 @@
+@font-face {
+    font-family: 'GMX';
+    src: url('../resources/gmx-regular-wisabo/GMX-Regular.otf') format('opentype')
+}
+
+body {
+    font-family: 'GMX-Regular', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f4f4f4;
+}
+
+header {
+    font-family: "Lora", serif;
+    background-image: URL("../resources/BANNER\ Y\ LGOGOS-04.jpg");
+    color: white;
+    width: 100%;
+    text-align: center;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.logos {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px 5%;
+}
+
+.logo {
+    display: flex;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.logo img {
+    width: 100%;
+    max-width: 80px;
+}
+
+.title {
+    margin-top: 15px;
+    display: flex;
+    width: 250px;
+    max-width: 100%;
+    margin-left: 20px;
+}
+
+.title img {
+    width: 100%;
+}
+
+.nav {
+    background-color: #0e2601;
+    width: 100%;
+    display: flex;
+    padding: 5px 0;
+    justify-content: center;
+}
+
+nav ul {
+    margin: 0;
+    padding: 0 5%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+nav ul li {
+    position: relative;
+    margin: 5px 15px;
+    padding: 5px;
+}
+
+nav ul li::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: white;
+    transform: scaleX(0);
+    transition: transform 0.3s ease-in-out;
+}
+
+nav ul li:hover::after {
+    transform: scaleX(1);
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+main {
+    flex: 1;
+    margin-top: auto;
+    background-color: rgb(246, 243, 243);
+    display: flex;
+    justify-content: center;
+}
+
+.container-title{
+    width: 80%;
+}
+
+.title1 {
+    width: 100%;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    font-family: "Lora", sans-serif;
+    font-size: clamp(1.5rem, 5vw, 4rem);
+    margin-top: 10px;
+    color: #244711;
+}
+
+.title2 {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Lora", sans-serif;
+    font-size: clamp(1rem, 5vw, 1.8rem);
+    margin-top: 10px;
+    color: #204b09;
+    text-align: center;
+    font-weight: bold;
+}
+
+
+footer {
+    background-image: URL("../resources/BANNER\ Y\ LGOGOS-04.jpg");
+    color: white;
+    text-align: center;
+    padding: 30px 5%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    place-items: center;
+}
+
+.footer-logo img {
+    height: 80px;
+    max-width: 100%;
+}
+
+.link-media {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.link-media a {
+    font-size: clamp(0.8rem, 1vw, 1rem);
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.link-media a:hover {
+    color: #ff5722;
+}
+
+.social-media {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.icons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 15px;
+}
+
+.social-media a {
+    font-size: clamp(1rem, 1.5vw, 1.5rem);
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.social-media a:hover {
+    color: #252625;
+}
+
+/* Media Queries para diferentes tamaños de pantalla */
+@media (max-width: 768px) {
+    .logos {
+        flex-direction: column;
+        padding: 10px 2%;
+    }
+    
+    .logo img {
+        max-width: 60px;
+    }
+    
+    .title {
+        margin-left: 0;
+        width: 200px;
+    }
+    
+    nav ul {
+        padding: 0 2%;
+    }
+    
+    nav ul li {
+        margin: 5px 10px;
+    }
+    
+    nav ul li a {
+        font-size: 0.8rem;
+    }
+    
+    .content1 {
+        flex-direction: column;
+    }
+    
+    .content1-text {
+        width: 100%;
+    }
+    
+    .content1 img {
+        margin-top: 0px;
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        margin-bottom: 20px;
+    }
+    
+    .content2 {
+        flex-direction: column;
+    }
+    
+    .content2 ul {
+        width: 100%;
+    }
+    
+    .content2 img {
+        max-width: 80%;
+        margin: 20px auto;
+        display: block;
+    }
+    
+    footer {
+        grid-template-columns: 1fr;
+    }
+    
+    .link-media, .social-media {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .logos {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;        
+    }
+    
+    .title {
+        width: 180px;
+    }
+    
+    nav ul li {
+        margin: 5px;
+    }
+    
+    nav ul li a {
+        font-size: 0.7rem;
+    }
+    
+    .title2 {
+        font-size: clamp(1.2rem, 4vw, 2rem);
+    }
+    
+    .content2 img {
+        max-width: 100%;
+    }
+}
+
+.language-selector {
+    background-color: rgb(65, 101, 83);
+    color: #d7d8d6;
+    padding: 8px;
+    border: none;
+    margin-top: -500px;
+    border-radius: 4px;
+    margin-bottom: 30px;
+    font-family: "Lora";
+    font-weight: bolder;
+}
+
+.language-selector option{
+    font-family: "Lora";
+    font-weight: bolder;
+}
+
+.video-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.video-wrapper {
+    position: relative;
+    background-color: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    margin-bottom: 40px;
+}
+
+.video-wrapper video {
+    width: 100%;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    border-radius: 10px;
+    cursor: pointer;
+
+}
+
+.play-button {
+    background-color: rgba(255,255,255,0.8);
+    color: #1a5f3e;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    margin-top: 100px;
+}
+
+.sign-language {
+    position: absolute;
+    right: 15px;
+    max-width: 50px;
+    margin-top: 243px;
+
+}
+
+/* Contenedor del texto en Kumiai */
+.kumiai-text-container {
+    text-align: center;
+    color: rgb(12, 12, 12);
+    border-radius: 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.kumiai-text-container p {
+    margin: 0 0 10px 0;
+}
+
+
+
+@media (max-width: 768px) {
+    .video-container {
+        grid-template-columns: 1fr;
+    }
+}

@@ -3,18 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elección Judicial 2025</title>
-    <link rel="stylesheet" href="css/aprendamos.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link href="/css/chatbot.css" rel="stylesheet">
+    <title>Localizador de Distritos Electorales de Baja California</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/mapeador.css">
+    <link rel="stylesheet" href="/css/chatbot.css">
+    <link rel="stylesheet" href="/css/index.css">
     <style>
-        .chat-toggle-btn {
+                .chat-toggle-btn {
             position: fixed;
             bottom: 30px;
             right: 30px;
@@ -88,7 +84,6 @@
         <div class="nav">
             <nav>
                 <ul>
-                    <li><a href="index.html">INICIO</a></li>
                     <li><a href="conócenos.html">CONÓCENOS</a></li>
                     <li><a href="voto.html">IMPORTANCIA DE TU VOTO</a></li>
                     <li><a href="aprendamos.html">APRENDAMOS</a></li>
@@ -100,56 +95,52 @@
     </header>
     
     <main>
-        <div class="container-title">
-            <h1 class="title1">APRENDAMOS</h1>
-            <select id="language-selector" class="language-selector">
-                <option value="es">Español</option>
-                <option value="en">Kumiai</option>
-                <option value="fr">Mixteco</option>
-            </select>
-            <div class="video-container">
-                <div>
-                    <div class="video-wrapper">
-                        <video id="video1" controls>
-                            <source id="video1-source" src="" type="video/mp4">
-                        </video>
-                        <audio id="audio1" style="display:none;"></audio>
-                        <div class="video-overlay">
-                            <div class="play-button">▶</div>
-                        </div>
-                        <img class="sign-language" src="resources/preview.png" alt="Lengua de Señas">
-                        <h1 class="title2">Reforma Judicial</h1>
-                        <div id="kumiai-text-container-1" class="kumiai-text-container"> <!-- ID único -->
-                            <p>Piya joa shuweth shimi juez suprem justis matth sham</p>
-                            <p>piya joa shuweith. mex washmaith jimok shuwetth math Sam.</p>
-                            <p>Tipai Shamelh pishoujwe jentok witpo. Justis math Sam tarruy tajan wishouj.</p>
-                            <p>Tribunal electoral. Juez magistrad uwiu pishou.</p>
-                            <p>Tipai samm jentok with taimik pawik wip ñaru wej politic wej shupai jomou miip muyauj.</p>
-                            <p>Joa shuweth justis miik kerkuar tipai Sam jentok with.</p>
+        <div class="container">
+            <div class="app-container">
+                <div class="control-panel">
+                    <h2>Encuentra tu distrito Local electoral</h2>
+                    <p>Localiza el distrito electoral más cercano a tu ubicación actual.</p>
+                    
+                    <div class="info-box">
+                        <div class="info-title">¿Cómo funciona?</div>
+                        <p>Esta herramienta utiliza tu ubicación actual para determinar el distrito electoral más cercano en Baja California.</p>
+                    </div>
+                    
+                    <div id="locationAlert" class="alert"></div>
+                    
+                    <div class="control-group" style="display: none;">
+                        <label for="districtType">Tipo de Distrito:</label>
+                        <select id="districtType">
+                            <option value="local">Local</option>
+                        </select>
+                    </div>
+                    
+                    <button id="locateBtn" class="btn">
+                        <i class="fas fa-location-arrow"></i> Localizar mi distrito
+                    </button>
+                    
+                    <div id="loading" class="loading">
+                        <div class="spinner"></div>
+                        <p>Localizando tu distrito...</p>
+                    </div>
+                    
+                    <div id="resultPanel" class="result-panel">
+                        <h2>Tu distrito electoral</h2>
+                        
+                        <div class="district-info">
+                            <div class="district-icon">
+                                <i class="fas fa-map"></i>
+                            </div>
+                            <div class="district-details">
+                                <h3 id="districtName">Distrito Federal 01</h3>
+                                <p id="districtType">Tipo: Local</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <div> 
-                    <div class="video-wrapper">
-                        <video id="video2" controls>
-                            <source id="video2-source" src="" type="video/mp4">
-                        </video>
-                        <audio id="audio2" style="display:none;"></audio>
-                        <div class="video-overlay">
-                            <div class="play-button">▶</div>
-                        </div>
-                        <img class="sign-language" src="/resources/preview.png" alt="Lengua de Señas">
-                        <h1 class="title2">Reforma Judicial</h1>
-                        <div id="kumiai-text-container-2" class="kumiai-text-container"> <!-- ID único -->
-                            <p>Piya joa shuweth shimi juez suprem justis matth sham</p>
-                            <p>piya joa shuweith. mex washmaith jimok shuwetth math Sam.</p>
-                            <p>Tipai Shamelh pishoujwe jentok witpo. Justis math Sam tarruy tajan wishouj.</p>
-                            <p>Tribunal electoral. Juez magistrad uwiu pishou.</p>
-                            <p>Tipai samm jentok with taimik pawik wip ñaru wej politic wej shupai jomou miip muyauj.</p>
-                            <p>Joa shuweth justis miik kerkuar tipai Sam jentok with.</p>
-                        </div>
-                    </div>
+                
+                <div id="map-container">
+                    <div id="map"></div>
                 </div>
             </div>
         </div>
@@ -205,9 +196,45 @@
             <button class="send-btn" onclick="sendMessage()">➤</button>
         </div>
     </div>
-    
-    <script src="/javascript/funciones.js"></script>
+
     <script src="/javascript/chatbot.js"></script>
-    <script src="javascript/aprendamos.js"></script>
+    <script src="/javascript/funciones.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+    <script src="/javascript/mapeador.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatToggle = document.getElementById('chat-toggle');
+            const chatContainer = document.getElementById('chat-container');
+            
+            chatToggle.addEventListener('click', function() {
+                chatContainer.classList.toggle('active');
+                
+                const icon = chatToggle.querySelector('i');
+                if (chatContainer.classList.contains('active')) {
+                    icon.classList.remove('fa-comments');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-comments');
+                }
+            });
+            
+            document.addEventListener('click', function(event) {
+                if (!chatContainer.contains(event.target) && 
+                    !chatToggle.contains(event.target) &&
+                    chatContainer.classList.contains('active')) {
+                    chatContainer.classList.remove('active');
+                    
+                    const icon = chatToggle.querySelector('i');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-comments');
+                }
+            });
+            
+            chatContainer.addEventListener('click', function(event) {
+                event.stopPropagation();
+            });
+        });
+    </script>
 </body>
 </html>

@@ -112,12 +112,36 @@ main {
     justify-content: center;
 }
 
+.title3 {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    font-family: 'GMX-Regular', sans-serif;
+    font-weight: bolder;
+    font-size: clamp(1.2rem, 4vw, 2.5rem);
+    color: #244711;
+    text-align: center;
+    margin-top: 3px;
+}
+
 .video-container{
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 40px;
     height: auto;
+}
+
+.container-boletas{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.boletas{
+    margin-top: -20px;
+    margin-left: 20px;
 }
 
 

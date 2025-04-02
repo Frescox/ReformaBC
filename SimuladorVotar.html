@@ -166,5 +166,40 @@
 
     <script src="javascript/chatbot.js"></script>
     <script src="javascript/funciones.js"></script>
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatToggle = document.getElementById('chat-toggle');
+            const chatContainer = document.getElementById('chat-container');
+            
+            chatToggle.addEventListener('click', function() {
+                chatContainer.classList.toggle('active');
+                
+                const icon = chatToggle.querySelector('i');
+                if (chatContainer.classList.contains('active')) {
+                    icon.classList.remove('fa-comments');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-comments');
+                }
+            });
+            
+            document.addEventListener('click', function(event) {
+                if (!chatContainer.contains(event.target) && 
+                    !chatToggle.contains(event.target) &&
+                    chatContainer.classList.contains('active')) {
+                    chatContainer.classList.remove('active');
+                    
+                    const icon = chatToggle.querySelector('i');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-comments');
+                }
+            });
+            
+            chatContainer.addEventListener('click', function(event) {
+                event.stopPropagation();
+            });
+        });
+    </script>
 </body>
 </html>

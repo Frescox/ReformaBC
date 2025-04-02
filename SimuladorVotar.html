@@ -165,49 +165,6 @@
     </div>
 
     <script src="javascript/chatbot.js"></script>
-    <script>
-        let seleccionActual = null;
-
-        // Función para seleccionar un partido
-        function seleccionar(elemento, partido) {
-            // Quitar selección anterior
-            if (seleccionActual) {
-                seleccionActual.classList.remove('seleccionado');
-                document.getElementById(seleccionActual.getAttribute('onclick').split("'")[1] + '-box').classList.remove('marcado');
-            }
-            
-            // Aplicar nueva selección
-            elemento.classList.add('seleccionado');
-            document.getElementById(partido + '-box').classList.add('marcado');
-            seleccionActual = elemento;
-        }
-
-        // Función para emitir el voto
-        function votar() {
-            if (!seleccionActual) {
-                alert('Por favor, seleccione una opción antes de votar.');
-                return;
-            }
-            
-            document.getElementById('overlay').style.display = 'block';
-            document.getElementById('mensaje').style.display = 'block';
-        }
-
-        // Función para cerrar el mensaje de confirmación
-        function cerrarMensaje() {
-            document.getElementById('overlay').style.display = 'none';
-            document.getElementById('mensaje').style.display = 'none';
-            reiniciar();
-        }
-
-        // Función para reiniciar la selección
-        function reiniciar() {
-            if (seleccionActual) {
-                seleccionActual.classList.remove('seleccionado');
-                document.getElementById(seleccionActual.getAttribute('onclick').split("'")[1] + '-box').classList.remove('marcado');
-                seleccionActual = null;
-            }
-        }
-    </script>
+    <script src="javascript/funciones.js"></script>
 </body>
 </html>

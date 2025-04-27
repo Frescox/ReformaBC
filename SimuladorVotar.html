@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Elección Judicial 2025</title>
-    <link rel="stylesheet" href="css/conócenos.css">
     <link rel="stylesheet" href="css/simuladorVoto.css">
     <link rel="stylesheet" href="css/chatbot.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,6 +14,135 @@
     <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
+        /* Estilos principales para el main */
+        main {
+            width: 90%;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .video-container {
+            width: 100%;
+            max-width: 740px;
+            background-color: #f5f5f5;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+
+        }
+
+        .video-container video {
+            width: 100%;
+            height: auto;
+            display: block;
+
+        }
+
+        .city-selector {
+            width: 100%;
+            max-width: 740px;
+            position: relative;
+
+        }
+
+        .custom-select {
+            position: relative;
+            width: 100%;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .selected-option {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background-color: #003366;
+            color: rgb(3, 3, 3);
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .options {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            border-top: none;
+            z-index: 100;
+            display: none;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .option {
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 10px;
+        }
+
+        .option:hover {
+            transform: scale(0.95); /* Aumenta el tamaño al 105% */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Sombra al hacer hover */
+        }
+
+
+
+        /* Colores específicos para cada boleta */
+        .regional-color {
+            background-color: #d2b48c; /* Color beige para sala regional */
+        }
+
+        .circuito-color {
+            background-color: #bc8f8f; /* Color marrón claro para magistrados de circuito */
+        }
+
+        .sala-superior-color {
+            background-color: #008080; /* Color verde azulado para sala superior */
+        }
+
+        .tribunal-color {
+            background-color: #3c9964; /* Color verde mar para tribunal de disciplina */
+        }
+
+        /* Estilos responsivos */
+        @media (max-width: 768px) {
+            .video-container video {
+                height: auto;
+            }
+
+            .video-container{
+                margin-top: 0;
+            }
+
+            .option{
+                font-size: 12px;
+            }
+
+            .selected-option{
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            main {
+                margin: 1rem auto;
+            }
+            
+            .selected-option {
+                padding: 0.75rem;
+            }
+            
+            .option {
+                padding: 0.75rem;
+            }
+        }
+
         .chat-toggle-btn {
             position: fixed;
             bottom: 30px;
@@ -101,15 +229,33 @@
     </header>
     
     <main>
+        <div class="city-selector">
+            <div class="custom-select">
+                <div class="selected-option">
+                    <span>SELECCIONA TIPO DE BOLETA</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="options">
+                    <div class="option regional-color" data-value="regional" data-video="resources/video_regional.mp4">
+                        Magistrados y magistradas de la sala regional de tribunal electoral del poder de la federación
+                    </div>
+                    <div class="option circuito-color" data-value="circuito" data-video="resources/video_circuito.mp4">
+                        Magistradas y magistrados de circuito
+                    </div>
+                    <div class="option sala-superior-color" data-value="sala-superior" data-video="resources/video_sala_superior.mp4">
+                        Magistrados y magistradas de la sala superior del tribunal electoral del poder judicial de la federación
+                    </div>
+                    <div class="option tribunal-color" data-value="tribunal" data-video="resources/video_tribunal.mp4">
+                        Magistrados y magistrados del tribunal de disciplina judicial
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="video-container">
-            <video width="740" height="460" controls>
+            <video width="740" height="460" controls id="videoPlayer">
                 <source src="resources/Cómo votar.mp4" type="video/mp4">
                 Tu navegador no soporta la etiqueta de video.
             </video>
-        </div>
-        <div class="container-boletas">
-            <p class="title3">Boletas</p>
-            <img class="boletas" src="resources/boletas.jpg" alt="boleta de colores" style="width: 350px;">
         </div>
     </main>
     
@@ -132,7 +278,7 @@
             </div>
         </div>   
     </footer>
-
+    
     <button class="chat-toggle-btn" id="chat-toggle">
         <i class="fas fa-comments"></i>
     </button>
@@ -165,8 +311,9 @@
     </div>
 
     <script src="javascript/chatbot.js"></script>
+    <script src="javascript/simuladorVoto.js"></script>
     <script src="javascript/funciones.js"></script>
-        <script>
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
             const chatToggle = document.getElementById('chat-toggle');
             const chatContainer = document.getElementById('chat-container');
@@ -199,6 +346,18 @@
             chatContainer.addEventListener('click', function(event) {
                 event.stopPropagation();
             });
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const logo = document.querySelector('.logo'); 
+            if (logo) {
+                logo.addEventListener("click", function() {
+                    location.reload(); 
+                });
+            } else {
+                console.error("El elemento con el selector '#logo' no se encontró.");
+            }
         });
     </script>
 </body>

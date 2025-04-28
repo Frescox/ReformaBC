@@ -1,48 +1,23 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const chatToggle = document.getElementById('chat-toggle');
-    const chatContainer = document.getElementById('chat-container');
-    
-    chatToggle.addEventListener('click', function() {
-        chatContainer.classList.toggle('active');
-        
-        const icon = chatToggle.querySelector('i');
-        if (chatContainer.classList.contains('active')) {
-            icon.classList.remove('fa-comments');
-            icon.classList.add('fa-times');
-        } else {
-            icon.classList.remove('fa-times');
-            icon.classList.add('fa-comments');
-        }
-    });
-    
-    document.addEventListener('click', function(event) {
-        if (!chatContainer.contains(event.target) && 
-            !chatToggle.contains(event.target) &&
-            chatContainer.classList.contains('active')) {
-            chatContainer.classList.remove('active');
-            
-            const icon = chatToggle.querySelector('i');
-            icon.classList.remove('fa-times');
-            icon.classList.add('fa-comments');
-        }
-    });
-    
-    chatContainer.addEventListener('click', function(event) {
-        event.stopPropagation();
-    });
-});
-
 document.addEventListener("DOMContentLoaded", () => {
-    const languageSelector = document.getElementById('language-selector');
+    // Custom select functionality
+    const customSelect = document.querySelector('.aprendamos-lenguage-custom-select');
+    const selectedOption = document.querySelector('.aprendamos-lenguage-selected-option');
+    const optionsContainer = document.querySelector('.aprendamos-lenguage-options');
+    const options = document.querySelectorAll('.aprendamos-lenguage-option');
+    const selectedText = selectedOption.querySelector('span');
+    
+    // Video and audio elements
     const video1 = document.getElementById('video1');
     const video2 = document.getElementById('video2');
     const audio1 = document.getElementById('audio1');
     const audio2 = document.getElementById('audio2');
     const video1Source = document.getElementById('video1-source');
     const video2Source = document.getElementById('video2-source');
-    const videoOverlays = document.querySelectorAll('.video-overlay');
-    const kumiaiTextContainer1 = document.getElementById('kumiai-text-container-1'); // Contenedor 1
-    const kumiaiTextContainer2 = document.getElementById('kumiai-text-container-2'); // Contenedor 2
+    const videoOverlays = document.querySelectorAll('.aprendamos-video-overlay');
+    const kumiaiTextContainer1 = document.getElementById('kumiai-text-container-1');
+    const kumiaiTextContainer2 = document.getElementById('kumiai-text-container-2');
+    
+    let currentLanguage = 'es'; // Default language
 
     const mediaResources = {
         'es': {
@@ -51,20 +26,41 @@ document.addEventListener("DOMContentLoaded", () => {
             'audio1': 'resources/0313.mp3',
             'audio2': 'resources/0313.mp3',
         },
-        'en': {
+        'ku': {
             'video1': 'resources/0313-mute.mp4',
             'video2': 'resources/0313-mute.mp4',
             'audio1': 'resources/kumi.opus',
             'audio2': 'resources/kumi.opus',
         },
-        /*
-        'fr': {
-            'video1': 'videos/video1-frances.mp4',
-            'video2': 'videos/video2-frances.mp4',
-            'audio1': 'audios/audio1-frances.mp3',
-            'audio2': 'audios/audio2-frances.mp3'
-        }*/
+        'mix': {
+            'video1': 'resources/0313-mute.mp4',
+            'video2': 'resources/0313-mute.mp4',
+            'audio1': 'resources/0313.mp3', // Default to Spanish audio for mixteco
+            'audio2': 'resources/0313.mp3',
+        }
     };
+
+    // Toggle dropdown
+    selectedOption.addEventListener('click', () => {
+        customSelect.classList.toggle('active');
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!customSelect.contains(e.target)) {
+            customSelect.classList.remove('active');
+        }
+    });
+
+    // Select option
+    options.forEach(option => {
+        option.addEventListener('click', () => {
+            selectedText.textContent = option.textContent.trim();
+            customSelect.classList.remove('active');
+            const selectedValue = option.getAttribute('data-value');
+            changeLanguage(selectedValue);
+        });
+    });
 
     function setupVideoSync(video, audio, overlay) {
         video.controls = false;
@@ -90,20 +86,37 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    function changeLanguage(idioma) {
-        const selectedLanguage = idioma || languageSelector.value;
+    function changeLanguage(languageCode) {
+        currentLanguage = languageCode;
 
-        // Mostrar u ocultar los contenedores del texto en Kumiai
-        if (selectedLanguage === 'en') {
-            kumiaiTextContainer1.style.display = 'block'; // Mostrar el contenedor 1
-            kumiaiTextContainer2.style.display = 'block'; // Mostrar el contenedor 2
+        // Show Kumiai text only when Kumiai language is selected
+        if (languageCode === 'ku') {
+            kumiaiTextContainer1.style.display = 'block';
+            kumiaiTextContainer2.style.display = 'block';
         } else {
-            kumiaiTextContainer1.style.display = 'none'; // Ocultar el contenedor 1
-            kumiaiTextContainer2.style.display = 'none'; // Ocultar el contenedor 2
+            kumiaiTextContainer1.style.display = 'none';
+            kumiaiTextContainer2.style.display = 'none';
         }
 
-        if (mediaResources[selectedLanguage]) {
-            const resources = mediaResources[selectedLanguage];
+        // If mixteco is selected, use Spanish audio by default
+        if (languageCode === 'mix') {
+            // Use Spanish audio resources for mixteco
+            const resources = mediaResources['es'];
+            
+            video1Source.src = resources.video1;
+            video2Source.src = resources.video2;
+            audio1.src = resources.audio1;
+            audio2.src = resources.audio2;
+
+            video1.load();
+            video2.load();
+            audio1.load();
+            audio2.load();
+
+            videoOverlays.forEach(overlay => overlay.style.display = 'flex');
+        } 
+        else if (mediaResources[languageCode]) {
+            const resources = mediaResources[languageCode];
 
             video1Source.src = resources.video1;
             video2Source.src = resources.video2;
@@ -119,13 +132,15 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Configurar videos
+    // Configure videos
     setupVideoSync(video1, audio1, videoOverlays[0]);
     setupVideoSync(video2, audio2, videoOverlays[1]);
 
-    // Establecer español por defecto
-    languageSelector.value = "es";
-    changeLanguage("es");
-
-    languageSelector.addEventListener('change', () => changeLanguage());
+    // Set default language to Spanish and hide Kumiai text
+    kumiaiTextContainer1.style.display = 'none';
+    kumiaiTextContainer2.style.display = 'none';
+    
+    // Initialize with Spanish
+    changeLanguage('es');
+    selectedText.textContent = 'Español';
 });

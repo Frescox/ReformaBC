@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EleccionesBC</title>
+    <link rel="icon" type="image/png" href="resources/images/logo-preview.png">
+    <link href="css/base.css" rel="stylesheet">
+    <link href="css/nuevo_candidato.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet" > 
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="logos">
+            <div class="logo">
+                <img src="resources/images/logo-preview.png" alt="Logo">
+            </div>
+            <div class="title">
+                <img src="resources/images/title.png" alt="Poder Judicial de Baja California">
+            </div>
+        </div>
+        <nav class="nav">
+            <ul>
+                <li><a href="index.html">INICIO</a></li>
+                <li><a href="conocenos.html">CONÓCENOS</a></li>
+                <li><a href="simulador_votar.html">CÓMO VOTAR</a></li>
+                <li><a href="ubicar_distrito.html">DÓNDE VOTAR</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="container">
+            <h1 class="title2">ELECCIÓN JUDICIAL 2025</h1>
+            
+            <div class="form-container">
+                <h2 class="form-title">Registro de Candidatos</h2>
+                
+                <div class="status-message" id="statusMessage"></div>
+                
+                <form id="candidateForm" enctype="multipart/form-data">
+                    <div class="row mb-4">
+                        <div class="col-md-6 mb-3">
+                            <label for="nombre" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" id="nombre" name="nombre" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="apellidos" class="form-label">Apellidos</label>
+                            <input type="text" class="form-control" id="apellidos" name="apellidos" required>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-4">
+                        <div class="col-md-6 mb-3">
+                            <label for="candidatura" class="form-label">Candidatura</label>
+                            <select class="form-select" id="candidatura" name="candidatura" required>
+                                <option value="" selected disabled>Seleccione candidatura</option>
+                                <option value="1">Ministros 🟣</option>
+                                <option value="2">Magistrados 🔵</option>
+                                <option value="3">Jueces 🟢</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="cargo" class="form-label">Cargo</label>
+                            <select class="form-select" id="cargo" name="cargo" required disabled>
+                                <option value="" selected disabled>Primero seleccione candidatura</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-4">
+                        <div class="col-md-6 mb-3">
+                            <label for="numero_lista" class="form-label">Número en la Lista</label>
+                            <input type="number" class="form-control" id="numero_lista" name="numero_lista" min="1">
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-4">
+                        <div class="col-md-6 mb-3">
+                            <label for="foto" class="form-label">Fotografía</label>
+                            <input type="file" class="form-control" id="foto" name="foto" accept=".png, .jpg, .jpeg" required>
+                            <div class="preview-container mt-2">
+                              <img id="imagePreview" src="#" alt="Vista previa" style="max-width: 100%; max-height: 200px; display: none;">
+                            </div>
+                          </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="documento" class="form-label">Documento CV (Imagen)</label>
+                            <input type="file" class="form-control" id="documento" name="documento" accept=".png, .jpg, .jpeg" required>
+                            <small class="form-text text-muted">Sube una imagen en formato PNG, JPG o JPEG</small>
+                        </div>                                             
+                    </div>
+                    
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button type="button" class="btn btn-secondary me-md-2" id="resetButton">Limpiar</button>
+                        <button type="submit" class="btn btn-primary">Registrar Candidato</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-logo">
+            <img src="resources/images/BCgob.png" alt="Gobierno de Baja California">
+        </div>
+        <div class="link-media">
+            <a href="https://www.bajacalifornia.gob.mx" target="_blank">Portal Oficial del Gobierno de Baja California</a>
+            <a href="https://www.llave.bajacalifornia.gob.mx/" target="_blank">Llave BC - Trámites y Servicios</a>
+            <a href="https://periodicooficial.ebajacalifornia.gob.mx/oficial/consultaPublicaciones.jsp" target="_blank">Periódico Oficial del Estado de Baja California</a>
+        </div>        
+        <div class="social-media">
+            <a>Síguenos</a>
+            <div class="icons">
+                <a href="https://www.facebook.com/BC.Gobierno/" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="https://www.tiktok.com/@marinadelpilarbc?lang=es" target="_blank"><i class="fab fa-tiktok"></i></a>
+                <a href="https://www.instagram.com/BCGobierno/" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.youtube.com/@GobiernodeBajaCalifornia" target="_blank"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>   
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="javascript/funciones.js"></script>
+    <script src="javascript/nuevo_candidato.js"></script>
+</body>
+</html>

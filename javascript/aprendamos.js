@@ -21,21 +21,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const mediaResources = {
         'es': {
-            'video1': 'resources/0313-mute.mp4',
-            'video2': 'resources/0313-mute.mp4',
-            'audio1': 'resources/0313.mp3',
-            'audio2': 'resources/0313.mp3',
+            'video1': 'resources/videos/0313-mute.mp4',
+            'video2': 'resources/videos/0313-mute.mp4',
+            'audio1': 'resources/audios/0313.mp3',
+            'audio2': 'resources/audios/0313.mp3',
         },
         'ku': {
-            'video1': 'resources/0313-mute.mp4',
-            'video2': 'resources/0313-mute.mp4',
-            'audio1': 'resources/kumi.opus',
-            'audio2': 'resources/kumi.opus',
+            'video1': 'resources/videos/0313-mute.mp4',
+            'video2': 'resources/videos/0313-mute.mp4',
+            'audio1': 'resources/audios/kumi.opus',
+            'audio2': 'resources/audios/kumi.opus',
         },
         'mix': {
-            'video1': 'resources/0313-mute.mp4',
-            'video2': 'resources/0313-mute.mp4',
-            'audio1': 'resources/0313.mp3', // Default to Spanish audio for mixteco
+            'video1': 'resources/videos/0313-mute.mp4',
+            'video2': 'resources/videos/0313-mute.mp4',
+            'audio1': 'resources/0313.mp3', 
             'audio2': 'resources/0313.mp3',
         }
     };

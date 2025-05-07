@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EleccionesBC</title>
+    <link rel="icon" type="image/png" href="resources/images/logo-preview.png">
+    <link rel="stylesheet" href="css/simuladorVoto.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/chatbot.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="logos">
+            <div class="logo">
+                <img src="resources/images/logo-preview.png" alt="Logo">
+            </div>
+            <div class="title">
+                <img src="resources/images/title.png" alt="Poder Judicial de Baja California">
+            </div>
+        </div>
+        <div class="nav">
+            <nav>
+                <ul>
+                    <li><a href="index.html">INICIO</a></li>
+                    <li><a href="nuevo_candidato.html">NUEVO</a></li>
+                    <li><a href="conocenos.html">CONÓCENOS</a></li>
+                    <li><a href="simulador_votar.html">CÓMO VOTAR</a></li>
+                    <li><a href="ubicar_distrito.html">DÓNDE VOTAR</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <main>
+        <div class="city-selector">
+            <div class="custom-select">
+                <div class="selected-option">
+                    <span>SELECCIONA TIPO DE BOLETA</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="options">
+                    <div class="option regional-color" data-value="regional" data-video="resources/video_regional.mp4">
+                        Magistrados y magistradas de la sala regional de tribunal electoral del poder de la federación
+                    </div>
+                    <div class="option circuito-color" data-value="circuito" data-video="resources/video_circuito.mp4">
+                        Magistradas y magistrados de circuito
+                    </div>
+                    <div class="option sala-superior-color" data-value="sala-superior" data-video="resources/video_sala_superior.mp4">
+                        Magistrados y magistradas de la sala superior del tribunal electoral del poder judicial de la federación
+                    </div>
+                    <div class="option tribunal-color" data-value="tribunal" data-video="resources/video_tribunal.mp4">
+                        Magistrados y magistrados del tribunal de disciplina judicial
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="video-container">
+            <video width="740" height="460" controls id="videoPlayer">
+                <source src="resources/videos/Cómo votar.mp4" type="video/mp4">
+                Tu navegador no soporta la etiqueta de video.
+            </video>
+        </div>
+        
+        <div class="info-box">
+            <h3>Importancia de tu participación</h3>
+            <p>Tu voto es crucial para fortalecer la democracia y el sistema judicial de México. Por primera vez en la historia, la ciudadanía podrá elegir directamente a sus jueces y magistrados, garantizando una justicia más cercana y representativa.</p>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="footer-logo">
+            <img src="resources/images/BCgob.png" alt="Gobierno de Baja California">
+        </div>
+        <div class="link-media">
+            <a href="https://www.bajacalifornia.gob.mx" target="_blank">Portal Oficial del Gobierno de Baja California</a>
+            <a href="https://www.llave.bajacalifornia.gob.mx/" target="_blank">Llave BC - Trámites y Servicios</a>
+            <a href="https://periodicooficial.ebajacalifornia.gob.mx/oficial/consultaPublicaciones.jsp" target="_blank">Periódico Oficial del Estado de Baja California</a>
+        </div>        
+        <div class="social-media">
+            <a>Síguenos</a>
+            <div class="icons">
+                <a href="https://www.facebook.com/BC.Gobierno/" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="https://www.tiktok.com/@marinadelpilarbc?lang=es" target="_blank"><i class="fab fa-tiktok"></i></a>
+                <a href="https://www.instagram.com/BCGobierno/" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.youtube.com/@GobiernodeBajaCalifornia" target="_blank"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>   
+    </footer>
+    
+    <button class="chat-toggle-btn" id="chat-toggle">
+        <i class="fas fa-comments"></i>
+    </button>
+    
+    <div class="chat-container" id="chat-container">
+        <div class="chat-header">
+            <h2>Asistente Electoral</h2>
+            <p>¡Hola! Puedo guiarte en tus dudas electorales</p>
+        </div>
+        <div class="chat-box" id="chat-box">
+            <div class="message bot-message">
+                ¡Que tal! Soy tu asistente electoral virtual. ¿Qué tema quieres conocer?
+                <div class="quick-replies">
+                    <button class="quick-reply-btn" onclick="handleQuickReply('info')">ℹ️ Información general</button>
+                    <button class="quick-reply-btn" onclick="handleQuickReply('cargos')">🧑‍⚖️ Cargos a elegir</button>
+                    <button class="quick-reply-btn" onclick="handleQuickReply('sistema')">⚖️ Sistema judicial Mexicano</button>
+                    <button class="quick-reply-btn" onclick="handleQuickReply('requisitos')">📋 Requisitos para votar</button>
+                </div>
+            </div>
+            <div class="typing-indicator">
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+            </div>
+        </div>
+        <div class="input-area">
+            <input type="text" id="user-input" placeholder="Escribe tu pregunta aquí...">
+            <button class="send-btn" onclick="sendMessage()">➤</button>
+        </div>
+    </div>
+
+    <script src="javascript/chatbot.js"></script>
+    <script src="javascript/simuladorVoto.js"></script>
+    <script src="javascript/funciones.js"></script>
+</body>
+</html>

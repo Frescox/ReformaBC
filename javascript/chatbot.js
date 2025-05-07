@@ -65,7 +65,6 @@ function addMessage(message, isUser = false) {
     const messageDiv = document.createElement('div');
     messageDiv.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
     
-    // Reemplazar \n por <br> para crear saltos de línea HTML
     messageDiv.innerHTML = message.replace(/\n/g, '<br>');
     
     chatBox.insertBefore(messageDiv, document.querySelector('.typing-indicator'));
@@ -151,4 +150,38 @@ document.getElementById('user-input').addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
         sendMessage();
     }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const chatToggle = document.getElementById('chat-toggle');
+    const chatContainer = document.getElementById('chat-container');
+    
+    chatToggle.addEventListener('click', function() {
+        chatContainer.classList.toggle('active');
+        
+        const icon = chatToggle.querySelector('i');
+        if (chatContainer.classList.contains('active')) {
+            icon.classList.remove('fa-comments');
+            icon.classList.add('fa-times');
+        } else {
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-comments');
+        }
+    });
+    
+    document.addEventListener('click', function(event) {
+        if (!chatContainer.contains(event.target) && 
+            !chatToggle.contains(event.target) &&
+            chatContainer.classList.contains('active')) {
+            chatContainer.classList.remove('active');
+            
+            const icon = chatToggle.querySelector('i');
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-comments');
+        }
+    });
+    
+    chatContainer.addEventListener('click', function(event) {
+        event.stopPropagation();
+    });
 });

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EleccionesBC</title>
+    <link rel="icon" type="image/png" href="resources/images/logo-preview.png">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/mapeador.css">
+    <link rel="stylesheet" href="css/chatbot.css">
+    <link rel="stylesheet" href="css/base.css">
+</head>
+<body>
+    <header>
+        <div class="logos">
+            <div class="logo">
+                <img src="resources/images/logo-preview.png" alt="Logo">
+            </div>
+            <div class="title">
+                <img src="resources/images/title.png" alt="Poder Judicial de Baja California">
+            </div>
+        </div>
+        <div class="nav">
+            <nav>
+                <ul>
+                    <li><a href="index.html">INICIO</a></li>
+                    <li><a href="nuevo_candidato.html">NUEVO</a></li>
+                    <li><a href="conocenos.html">CONÓCENOS</a></li>
+                    <li><a href="simulador_votar.html">CÓMO VOTAR</a></li>
+                    <li><a href="ubicar_distrito.html">DÓNDE VOTAR</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <main>
+        <div class="container">
+            <div class="app-container">
+                <div class="control-panel">
+                    <h2>Encuentra tu distrito Local electoral</h2>
+                    <p>Localiza el distrito electoral más cercano a tu ubicación actual.</p>
+                    
+                    <div class="info-box">
+                        <div class="info-title">¿Cómo funciona?</div>
+                        <p>Esta herramienta utiliza tu ubicación actual para determinar el distrito electoral más cercano en Baja California.</p>
+                    </div>
+                    
+                    <div id="locationAlert" class="alert"></div>
+                    
+                    <div class="control-group" style="display: none;">
+                        <label for="districtType">Tipo de Distrito:</label>
+                        <select id="districtType">
+                            <option value="local">Local</option>
+                        </select>
+                    </div>
+                    
+                    <button id="locateBtn" class="btn">
+                        <i class="fas fa-location-arrow"></i> Localizar mi distrito
+                    </button>
+                    
+                    <div id="loading" class="loading">
+                        <div class="spinner"></div>
+                        <p>Localizando tu distrito...</p>
+                    </div>
+                    
+                    <div id="resultPanel" class="result-panel">
+                        <h2>Tu distrito electoral</h2>
+                        
+                        <div class="district-info">
+                            <div class="district-icon">
+                                <i class="fas fa-map"></i>
+                            </div>
+                            <div class="district-details">
+                                <h3 id="districtName">Distrito Federal 01</h3>
+                                <p id="districtType">Tipo: Local</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="map-container">
+                    <div id="map"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="footer-logo">
+            <img src="resources/images/BCgob.png" alt="Gobierno de Baja California">
+        </div>
+        <div class="link-media">
+            <a href="https://www.bajacalifornia.gob.mx" target="_blank">Portal Oficial del Gobierno de Baja California</a>
+            <a href="https://www.llave.bajacalifornia.gob.mx/" target="_blank">Llave BC - Trámites y Servicios</a>
+            <a href="https://periodicooficial.ebajacalifornia.gob.mx/oficial/consultaPublicaciones.jsp" target="_blank">Periódico Oficial del Estado de Baja California</a>
+        </div>        
+        <div class="social-media">
+            <a>Síguenos</a>
+            <div class="icons">
+                <a href="https://www.facebook.com/BC.Gobierno/" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="https://www.tiktok.com/@marinadelpilarbc?lang=es" target="_blank"><i class="fab fa-tiktok"></i></a>
+                <a href="https://www.instagram.com/BCGobierno/" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.youtube.com/@GobiernodeBajaCalifornia" target="_blank"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>   
+    </footer>
+
+    <button class="chat-toggle-btn" id="chat-toggle">
+        <i class="fas fa-comments"></i>
+    </button>
+    
+    <div class="chat-container" id="chat-container">
+        <div class="chat-header">
+            <h2>Asistente Electoral</h2>
+            <p>¡Hola! Puedo guiarte en tus dudas electorales</p>
+        </div>
+        <div class="chat-box" id="chat-box">
+            <div class="message bot-message">
+                ¡Que tal! Soy tu asistente electoral virtual. ¿Qué tema quieres conocer?
+                <div class="quick-replies">
+                    <button class="quick-reply-btn" onclick="handleQuickReply('info')">ℹ️ Información general</button>
+                    <button class="quick-reply-btn" onclick="handleQuickReply('cargos')">🧑‍⚖️ Cargos a elegir</button>
+                    <button class="quick-reply-btn" onclick="handleQuickReply('sistema')">⚖️ Sistema judicial Mexicano</button>
+                    <button class="quick-reply-btn" onclick="handleQuickReply('requisitos')">📋 Requisitos para votar</button>
+                </div>
+            </div>
+            <div class="typing-indicator">
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+            </div>
+        </div>
+        <div class="input-area">
+            <input type="text" id="user-input" placeholder="Escribe tu pregunta aquí...">
+            <button class="send-btn" onclick="sendMessage()">➤</button>
+        </div>
+    </div>
+
+    <script src="javascript/chatbot.js"></script>
+    <script src="javascript/funciones.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+    <script src="javascript/mapeador.js"></script>
+</body>
+</html>

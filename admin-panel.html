@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administración de Candidatos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #306e3b;
+            text-align: center;
+        }
+        .btn {
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+            margin: 5px;
+        }
+        .btn-primary {
+            background-color: #306e3b;
+            color: white;
+            border: none;
+        }
+        .btn-warning {
+            background-color: #ffc107;
+            color: #212529;
+            border: none;
+        }
+        .btn-danger {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        th {
+            background-color: #306e3b;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .actions {
+            display: flex;
+            gap: 5px;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 20px;
+            border-radius: 5px;
+            width: 70%;
+            max-width: 800px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover {
+            color: black;
+        }
+        form {
+            margin-top: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .message {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .hidden {
+            display: none;
+        }
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+        }
+        .loading i {
+            font-size: 30px;
+            animation: spin 1s infinite linear;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Administración de Candidatos</h1>
+        
+        <div id="message" class="message hidden"></div>
+        
+        <button id="addCandidateBtn" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Agregar Nuevo Candidato
+        </button>
+        
+        <div class="loading" id="loadingIndicator">
+            <i class="fas fa-spinner"></i>
+        </div>
+        
+        <table id="candidatesTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Candidatura</th>
+                    <th>Cargo</th>
+                    <th>Núm. Lista</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="candidatesBody">
+                <!-- Los candidatos se cargarán aquí dinámicamente -->
+            </tbody>
+        </table>
+    </div>
+    
+    <!-- Modal para agregar/editar candidato -->
+    <div id="candidateModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle">Agregar Nuevo Candidato</h2>
+            
+            <form id="candidateForm" enctype="multipart/form-data">
+                <input type="hidden" id="candidateId" name="id_candidato">
+                
+                <div class="form-group">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" name="nombre" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="apellidos">Apellidos:</label>
+                    <input type="text" id="apellidos" name="apellidos" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="candidatura">Candidatura:</label>
+                    <select id="candidatura" name="candidatura" required>
+                        <option value="">Seleccione una candidatura</option>
+                        <option value="1">Ministro/a</option>
+                        <option value="2">Magistrado/a</option>
+                        <option value="3">Juez/a</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="cargo">Cargo:</label>
+                    <select id="cargo" name="cargo" required>
+                        <option value="">Seleccione un cargo</option>
+                        <!-- Las opciones se cargarán dinámicamente según la candidatura seleccionada -->
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="numero_lista">Número de Lista:</label>
+                    <input type="number" id="numero_lista" name="numero_lista" min="1">
+                </div>
+                
+                <div class="form-group">
+                    <label for="foto">Fotografía:</label>
+                    <input type="file" id="foto" name="foto" accept="image/*">
+                    <div id="fotoPreview" class="hidden">
+                        <p>Foto actual:</p>
+                        <img id="currentPhoto" src="" alt="Foto del candidato" style="max-width: 150px; max-height: 150px;">
+                        <label>
+                            <input type="checkbox" id="mantenerFoto" name="mantener_foto" checked>
+                            Mantener foto actual
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="documento">Documento (PDF, PNG, JPG):</label>
+                    <input type="file" id="documento" name="documento" accept=".pdf,.png,.jpg,.jpeg">
+                    <div id="documentoPreview" class="hidden">
+                        <p>Documento actual: <span id="currentDocName"></span></p>
+                        <label>
+                            <input type="checkbox" id="mantenerDocumento" name="mantener_documento" checked>
+                            Mantener documento actual
+                        </label>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Modal de confirmación para eliminar -->
+    <div id="deleteModal" class="modal">
+        <div class="modal-content" style="max-width: 400px;">
+            <span class="close">&times;</span>
+            <h2>Confirmar Eliminación</h2>
+            <p>¿Está seguro que desea eliminar al candidato <span id="deleteCandidate"></span>?</p>
+            <p>Esta acción no se puede deshacer.</p>
+            <div style="text-align: right; margin-top: 20px;">
+                <button id="cancelDelete" class="btn" style="background-color: #6c757d; color: white;">Cancelar</button>
+                <button id="confirmDelete" class="btn btn-danger">Eliminar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Referencias a elementos DOM
+            const candidatesTable = document.getElementById('candidatesTable');
+            const candidatesBody = document.getElementById('candidatesBody');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            const messageDiv = document.getElementById('message');
+            const addCandidateBtn = document.getElementById('addCandidateBtn');
+            const candidateModal = document.getElementById('candidateModal');
+            const deleteModal = document.getElementById('deleteModal');
+            const closeButtons = document.querySelectorAll('.close');
+            const candidateForm = document.getElementById('candidateForm');
+            const candidaturaSelect = document.getElementById('candidatura');
+            const cargoSelect = document.getElementById('cargo');
+            const modalTitle = document.getElementById('modalTitle');
+            const cancelDelete = document.getElementById('cancelDelete');
+            
+            // Mapeo de cargos por candidatura
+            const cargosPorCandidatura = {
+                '1': [ // Ministros
+                    { id: 1, name: 'Suprema Corte de Justicia de la Nación' }
+                ],
+                '2': [ // Magistrados
+                    { id: 2, name: 'Tribunal de Disciplina Judicial' },
+                    { id: 3, name: 'Sala Superior del Tribunal Electoral' },
+                    { id: 4, name: 'Sala Regional del Tribunal Electoral' },
+                    { id: 5, name: 'Magistraturas de Circuito' },
+                    { id: 7, name: 'Sala Superior de Justicia del Poder Judicial del Estado de Baja California' }
+                ],
+                '3': [ // Jueces
+                    { id: 6, name: 'Jueces de Distrito' }
+                ]
+            };
+            
+            // Variable para almacenar el ID del candidato a eliminar
+            let candidatoAEliminar = null;
+            
+            // Cargar la lista de candidatos al iniciar
+            loadCandidates();
+            
+            // Event Listeners
+            addCandidateBtn.addEventListener('click', openAddModal);
+            
+            closeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    candidateModal.style.display = 'none';
+                    deleteModal.style.display = 'none';
+                });
+            });
+            
+            candidateForm.addEventListener('submit', handleFormSubmit);
+            
+            candidaturaSelect.addEventListener('change', updateCargoOptions);
+            
+            cancelDelete.addEventListener('click', function() {
+                deleteModal.style.display = 'none';
+            });
+            
+            document.getElementById('confirmDelete').addEventListener('click', function() {
+                if (candidatoAEliminar) {
+                    deleteCandidate(candidatoAEliminar);
+                }
+            });
+            
+            // Cerrar modales al hacer clic fuera de ellos
+            window.addEventListener('click', function(event) {
+                if (event.target === candidateModal) {
+                    candidateModal.style.display = 'none';
+                }
+                if (event.target === deleteModal) {
+                    deleteModal.style.display = 'none';
+                }
+            });
+            
+            // Función para cargar candidatos desde el servidor
+            function loadCandidates() {
+                showLoading(true);
+                
+                fetch('php/get_candidates.php')
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Error en la respuesta del servidor');
+                        }
+                        return response.json();
+                    })
+                    .then(candidates => {
+                        displayCandidates(candidates);
+                        showLoading(false);
+                    })
+                    .catch(error => {
+                        showMessage('Error al cargar candidatos: ' + error.message, 'error');
+                        showLoading(false);
+                    });
+            }
+            
+            // Función para mostrar candidatos en la tabla
+            function displayCandidates(candidates) {
+                candidatesBody.innerHTML = '';
+                
+                if (candidates.length === 0) {
+                    const row = document.createElement('tr');
+                    row.innerHTML = '<td colspan="7" style="text-align: center;">No hay candidatos registrados</td>';
+                    candidatesBody.appendChild(row);
+                    return;
+                }
+                
+                candidates.forEach(candidate => {
+                    const row = document.createElement('tr');
+                    
+                    // Mapeo de nombres de candidatura
+                    let candidaturaTexto = '';
+                    console.log(candidate.id_candidatura)
+                    switch (candidate.id_candidatura) {
+                        case 1: candidaturaTexto = 'Ministro/a'; break;
+                        case 2: candidaturaTexto = 'Magistrado/a'; break;
+                        case 3: candidaturaTexto = 'Juez/a'; break;
+                        default: candidaturaTexto = 'Desconocido';
+                    }
+                    
+                    row.innerHTML = `
+                        <td>${candidate.id_candidato}</td>
+                        <td>${candidate.nombre}</td>
+                        <td>${candidate.apellidos}</td>
+                        <td>${candidaturaTexto}</td>
+                        <td>${candidate.cargo || 'No especificado'}</td>
+                        <td>${candidate.numero_lista || 'N/A'}</td>
+                        <td class="actions">
+                            <button class="btn btn-warning edit-btn" data-id="${candidate.id_candidato}">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-danger delete-btn" data-id="${candidate.id_candidato}" data-name="${candidate.nombre} ${candidate.apellidos}">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    `;
+                    
+                    candidatesBody.appendChild(row);
+                });
+                
+                // Agregar event listeners a los botones de editar y eliminar
+                document.querySelectorAll('.edit-btn').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const candidateId = this.getAttribute('data-id');
+                        openEditModal(candidateId);
+                    });
+                });
+                
+                document.querySelectorAll('.delete-btn').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const candidateId = this.getAttribute('data-id');
+                        const candidateName = this.getAttribute('data-name');
+                        showDeleteConfirmation(candidateId, candidateName);
+                    });
+                });
+            }
+            
+            // Función para abrir el modal de agregar candidato
+            function openAddModal() {
+                modalTitle.textContent = 'Agregar Nuevo Candidato';
+                candidateForm.reset();
+                document.getElementById('candidateId').value = '';
+                document.getElementById('fotoPreview').classList.add('hidden');
+                document.getElementById('documentoPreview').classList.add('hidden');
+                candidateModal.style.display = 'block';
+            }
+            
+            // Función para abrir el modal de editar candidato
+            function openEditModal(candidateId) {
+                modalTitle.textContent = 'Editar Candidato';
+                candidateForm.reset();
+                document.getElementById('candidateId').value = candidateId;
+                
+                showLoading(true);
+                
+                fetch(`php/get_candidate.php?id=${candidateId}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Error en la respuesta del servidor');
+                        }
+                        return response.json();
+                    })
+                    .then(candidate => {
+                        if (candidate) {
+                            // Llenar el formulario con los datos del candidato
+                            document.getElementById('nombre').value = candidate.nombre;
+                            document.getElementById('apellidos').value = candidate.apellidos;
+                            document.getElementById('candidatura').value = candidate.id_candidatura;
+                            
+                            // Actualizar opciones de cargo
+                            updateCargoOptions();
+                            
+                            document.getElementById('cargo').value = candidate.id_cargo;
+                            document.getElementById('numero_lista').value = candidate.numero_lista || '';
+                            
+                            // Mostrar la foto actual si existe
+                            if (candidate.foto_url && candidate.foto_url !== 'null') {
+                                document.getElementById('currentPhoto').src = candidate.foto_url;
+                                document.getElementById('fotoPreview').classList.remove('hidden');
+                            } else {
+                                document.getElementById('fotoPreview').classList.add('hidden');
+                            }
+                            
+                            // Mostrar el documento actual si existe
+                            if (candidate.documentos && candidate.documentos.length > 0) {
+                                document.getElementById('currentDocName').textContent = candidate.documentos[0].titulo;
+                                document.getElementById('documentoPreview').classList.remove('hidden');
+                            } else {
+                                document.getElementById('documentoPreview').classList.add('hidden');
+                            }
+                            
+                            candidateModal.style.display = 'block';
+                        } else {
+                            showMessage('No se encontró información del candidato', 'error');
+                        }
+                        
+                        showLoading(false);
+                    })
+                    .catch(error => {
+                        showMessage('Error al cargar datos del candidato: ' + error.message, 'error');
+                        showLoading(false);
+                    });
+            }
+            
+            // Función para mostrar confirmación de eliminación
+            function showDeleteConfirmation(candidateId, candidateName) {
+                document.getElementById('deleteCandidate').textContent = candidateName;
+                candidatoAEliminar = candidateId;
+                deleteModal.style.display = 'block';
+            }
+            
+            // Función para eliminar un candidato
+            function deleteCandidate(candidateId) {
+                showLoading(true);
+                
+                const formData = new FormData();
+                formData.append('id_candidato', candidateId);
+                formData.append('action', 'delete');
+                
+                fetch('php/delete_candidate.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error en la respuesta del servidor');
+                    }
+                    return response.json();
+                })
+                .then(result => {
+                    if (result.success) {
+                        showMessage(result.message, 'success');
+                        loadCandidates();
+                    } else {
+                        showMessage(result.message, 'error');
+                    }
+                    
+                    deleteModal.style.display = 'none';
+                    candidatoAEliminar = null;
+                    showLoading(false);
+                })
+                .catch(error => {
+                    showMessage('Error al eliminar candidato: ' + error.message, 'error');
+                    showLoading(false);
+                });
+            }
+            
+            // Función para manejar el envío del formulario (agregar/editar)
+            function handleFormSubmit(event) {
+                event.preventDefault();
+                
+                const formData = new FormData(candidateForm);
+                const candidateId = document.getElementById('candidateId').value;
+                
+                // Determinar si es una actualización o inserción
+                const action = candidateId ? 'update' : 'create';
+                formData.append('action', action);
+                
+                // Manejar los checkboxes de mantener archivos actuales
+                if (action === 'update') {
+                    formData.append('mantener_foto', document.getElementById('mantenerFoto').checked ? '1' : '0');
+                    formData.append('mantener_documento', document.getElementById('mantenerDocumento').checked ? '1' : '0');
+                    
+                    // Si se desmarca la opción de mantener foto pero no se elige una nueva, mostrar error
+                    if (!document.getElementById('mantenerFoto').checked && !document.getElementById('foto').files[0]) {
+                        showMessage('Debe seleccionar una nueva foto si no desea mantener la actual', 'error');
+                        return;
+                    }
+                }
+                
+                showLoading(true);
+                
+                const url = action === 'update' ? 'php/update_candidate.php' : 'php/create_candidate.php';
+                
+                fetch(url, {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error en la respuesta del servidor');
+                    }
+                    return response.json();
+                })
+                .then(result => {
+                    if (result.success) {
+                        showMessage(result.message, 'success');
+                        candidateModal.style.display = 'none';
+                        loadCandidates();
+                    } else {
+                        showMessage(result.message, 'error');
+                    }
+                    
+                    showLoading(false);
+                })
+                .catch(error => {
+                    showMessage('Error al procesar la solicitud: ' + error.message, 'error');
+                    showLoading(false);
+                });
+            }
+            
+            // Función para actualizar opciones de cargo según candidatura seleccionada
+            function updateCargoOptions() {
+                const candidaturaId = candidaturaSelect.value;
+                cargoSelect.innerHTML = '<option value="">Seleccione un cargo</option>';
+                
+                if (candidaturaId && candidaturaId in cargosPorCandidatura) {
+                    cargosPorCandidatura[candidaturaId].forEach(cargo => {
+                        const option = document.createElement('option');
+                        option.value = cargo.id;
+                        option.textContent = cargo.name;
+                        cargoSelect.appendChild(option);
+                    });
+                }
+            }
+            
+            // Función para mostrar/ocultar indicador de carga
+            function showLoading(show) {
+                if (show) {
+                    loadingIndicator.style.display = 'flex';
+                    candidatesTable.style.opacity = '0.5';
+                } else {
+                    loadingIndicator.style.display = 'none';
+                    candidatesTable.style.opacity = '1';
+                }
+            }
+            
+            // Función para mostrar mensajes
+            function showMessage(text, type) {
+                messageDiv.textContent = text;
+                messageDiv.className = `message ${type}`;
+                messageDiv.classList.remove('hidden');
+                
+                // Ocultar el mensaje después de 5 segundos
+                setTimeout(() => {
+                    messageDiv.classList.add('hidden');
+                }, 5000);
+            }
+        });
+    </script>
+</body>
+</html>

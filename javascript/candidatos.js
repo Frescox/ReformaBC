@@ -40,7 +40,6 @@ document.addEventListener('DOMContentLoaded', function() {
         'sala-regional': 4,
         'magistratura-circuito': 5,
         'juez-distrito': 6,
-        'sala-constitucional': 7
     };
     
     // Opciones de cargos por cada candidatura
@@ -53,7 +52,6 @@ document.addEventListener('DOMContentLoaded', function() {
             { value: 'sala-superior', text: 'Sala Superior del Tribunal Electoral', tooltip: 'Resuelve controversias electorales a nivel nacional.' },
             { value: 'sala-regional', text: 'Sala Regional del Tribunal Electoral', tooltip: 'Atiende asuntos electorales en la región.' },
             { value: 'magistratura-circuito', text: 'Magistraturas de Circuito', tooltip: 'Magistrados que revisan sentencias y apelaciones.' },
-            { value: 'sala-constitucional', text: 'Sala Superior de Justicia del Poder Judicial del Estado de Baja California', tooltip: 'Interpreta la constitución local.' }
         ],
         juez: [
             { value: 'juez-distrito', text: 'Jueces de Distrito', tooltip: 'Atienden juicios de amparo y otros asuntos federales.' }
@@ -617,7 +615,7 @@ function displayCandidateInModal(index) {
                 const downloadBtn = document.createElement('a');
                 downloadBtn.href = fileUrl;
                 downloadBtn.download = `candidato-${candidate.id_candidato}-imagen`; 
-                downloadBtn.textContent = 'Descargar Imagen';
+                downloadBtn.textContent = 'Descargar';
                 downloadBtn.style.display = 'block';
                 downloadBtn.style.marginTop = '2px';
                 downloadBtn.style.padding = '8px 12px';

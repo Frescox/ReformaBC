@@ -1,0 +1,364 @@
+@font-face {
+    font-family: 'GMX';
+    src: url('../resources/gmx-regular-wisabo/GMX-Regular.otf') format('opentype');
+}
+
+* {
+    box-sizing: border-box; 
+    font-family: 'GMX', sans-serif;
+}
+
+body {
+    font-family: 'GMX', sans-serif;
+}
+
+header {
+    background-image: URL("../resources/images/BANNER Y LGOGOS-04.jpg");
+    color: white;
+    width: 100%;
+    text-align: center;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.logos {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px 5%;
+    width: 100%; 
+    box-sizing: border-box;
+}
+
+.logo {
+    display: flex;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.logo img {
+    width: 100%;
+    max-width: 80px;
+    height: auto;
+}
+
+.title {
+    margin-top: 15px;
+    display: flex;
+    width: 250px;
+    max-width: 100%;
+    margin-left: 20px;
+}
+
+.title img {
+    width: 100%;
+    height: auto;
+}
+
+.nav {
+    background-color: #0e2601;
+    width: 100%;
+    display: flex;
+    padding: 5px 0;
+    justify-content: center;
+}
+
+nav {
+    width: 90%;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0 5%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+nav ul li {
+    position: relative;
+    margin: 5px 15px;
+    padding: 5px;
+}
+
+nav ul li::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: white;
+    transform: scaleX(0);
+    transition: transform 0.3s ease-in-out;
+}
+
+nav ul li:hover::after {
+    transform: scaleX(1);
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    font-family: 'GMX', sans-serif;
+
+}
+
+.site-footer {
+    background-image: url("../resources/images/BANNER Y LGOGOS-04.jpg");
+    color: #ffffff;
+    text-align: center;
+    padding: 30px 5%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: 'Arial', sans-serif;
+    width: 100%; 
+    box-sizing: border-box;
+    margin: 0;
+}
+
+.footer-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    place-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-column {
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 0 15px;
+}
+
+.footer-logo img {
+    max-width: 200px;
+    height: auto;
+    margin-bottom: 15px;
+}
+
+.footer-column h3 {
+    font-size: 18px;
+    border-bottom: 2px solid #ffcc00;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.footer-links, .contact-info {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li, .contact-info li {
+    margin-bottom: 10px;
+}
+
+.footer-links a, .contact-info a {
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover, .contact-info a:hover {
+    color: #ffcc00;
+    text-decoration: underline;
+}
+
+.social-icons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.social-icons a {
+    display: flex;
+    align-items: center;
+    color: #ffffff;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 16px;
+    justify-content: center;
+}
+
+.social-icons a i {
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+.social-icons a:hover {
+    color: #ffcc00;
+    transform: translateX(5px);
+}
+
+.sub-footer {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+    font-size: 14px;
+}
+
+.sub-footer a {
+    color: #ffcc00;
+    text-decoration: none;
+}
+
+.sub-footer a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .footer-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Tablet Styles */
+@media (max-width: 992px) {
+    .logo img {
+        max-width: 70px;
+    }
+    
+    .title {
+        width: 220px;
+    }
+    
+    footer {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+    }
+    
+    .footer-logo img {
+        height: 70px;
+    }
+}
+
+/* Medium Screens */
+@media (max-width: 768px) {
+    .logos {
+        display: flex;
+        align-items: center; 
+        justify-content: flex-start;
+        gap: 10px;
+        padding: 10px 3%;
+    }
+    
+    .logo img {
+        max-width: 60px;
+    }
+    
+    .title {
+        margin-left: 10px;
+        width: 200px;
+        margin-top: 10px;
+    }
+    
+    .nav {
+        padding: 3px 0;
+    }
+    
+    nav ul {
+        padding: 0 2%;
+        justify-content: center;
+    }
+    
+    nav ul li {
+        margin: 3px 8px;
+        padding: 3px;
+    }
+    
+    nav ul li a {
+        font-size: 0.8rem;
+    }
+
+}
+
+/* Small Screens / Mobile */
+@media (max-width: 480px) {
+    header {
+        background-position: top center;
+        background-size: 100% 73%; 
+        background-repeat: repeat-y;
+    }
+    
+    .logos {
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        padding: 5px 2%;
+        gap: 5px;
+    }
+    
+    .logo {
+        margin: 5px 0;
+    }
+    
+    .logo img {
+        max-width: 50px;
+    }
+    
+    .title {
+        width: 180px;
+        margin-left: 5px;
+        margin-top: 5px;
+    }
+    
+    .nav {
+        padding: 2px 0;
+    }
+    
+    nav ul {
+        padding: 0;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 2px;
+    }
+    
+    nav ul li {
+        margin: 2px 4px;
+        padding: 2px;
+    }
+    
+    nav ul li a {
+        font-size: 0.7rem;
+    }
+}
+
+/* Extra Small Screens */
+@media (max-width: 320px) {
+    .logos {
+        flex-direction: column;
+        padding: 5px 1%;
+    }
+    
+    .logo img {
+        max-width: 45px;
+    }
+    
+    .title {
+        width: 160px;
+        margin: 0;
+    }
+    
+    nav ul li {
+        margin: 2px;
+    }
+    
+    nav ul li a {
+        font-size: 0.65rem;
+    }
+}

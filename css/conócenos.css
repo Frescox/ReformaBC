@@ -1,119 +1,19 @@
-@font-face {
-    font-family: 'GMX';
-    src: url('../resources/gmx-regular-wisabo/GMX-Regular.otf') format('opentype')
-}
-
-body {
-    font-family: 'GMX-Regular', sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    background-color: #f4f4f4;
-}
-
-header {
-    font-family: "Lora", serif;
-    background-image: URL("../resources/BANNER\ Y\ LGOGOS-04.jpg");
-    color: white;
-    width: 100%;
-    text-align: center;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-}
-
-.logos {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 10px 5%;
-}
-
-.logo {
-    display: flex;
-    margin-bottom: 10px;
-    margin-top: 10px;
-}
-
-.logo img {
-    width: 100%;
-    max-width: 80px;
-}
-
-.title {
-    margin-top: 15px;
-    display: flex;
-    width: 250px;
-    max-width: 100%;
-    margin-left: 20px;
-}
-
-.title img {
-    width: 100%;
-}
-
-.nav {
-    background-color: #0e2601;
-    width: 100%;
-    display: flex;
-    padding: 5px 0;
-    justify-content: center;
-}
-
-nav ul {
-    margin: 0;
-    padding: 0 5%;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    width: 100%;
-}
-
-nav ul li {
-    position: relative;
-    margin: 5px 15px;
-    padding: 5px;
-}
-
-nav ul li::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: white;
-    transform: scaleX(0);
-    transition: transform 0.3s ease-in-out;
-}
-
-nav ul li:hover::after {
-    transform: scaleX(1);
-}
-
-nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 0.9rem;
-}
-
+/* Main content styling with improved responsiveness */
 main {
     flex: 1;
-    margin-top: auto;
+    padding: 2rem 0;
     background-color: rgb(246, 243, 243);
     display: flex;
     justify-content: center;
 }
 
-.container-title{
-    width: 80%;
+.container-title {
+    width: 90%;
+    max-width: 1200px;
+    padding: 1.5rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
 .title1 {
@@ -121,180 +21,104 @@ main {
     display: flex;
     justify-content: left;
     align-items: center;
-    font-family: "Lora", sans-serif;
-    font-size: clamp(1.5rem, 5vw, 4rem);
-    margin-top: 10px;
+    font-family: "Lora", serif;
+    font-size: clamp(1.5rem, 5vw, 3rem);
+    margin-bottom: 2rem;
     color: #244711;
-    text-align: center;
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+.title1::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 80px;
+    height: 3px;
+    background-color: #244711;
 }
 
 .title2 {
     width: 100%;
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    font-family: "Lora", sans-serif;
-    font-size: clamp(1rem, 5vw, 1.8rem);
-    margin-top: -20px;
+    font-family: "Lora", serif;
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    margin: 2rem 0 1rem;
     color: #0f2503;
-    text-align: center;
     font-weight: bold;
 }
 
 .content1 {
-    width: 90%;
-    display: flex;
-    justify-content: left;
-    font-family: "Lora", sans-serif;
-    font-size: clamp(1rem, 5vw, 1.1rem);
-    margin-top: -10px;
-    margin-left: 10px;
-    color: #0f2503;
+    width: 100%;
+    font-family: "Lora", serif;
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
+    line-height: 1.6;
+    color: #333;
+    margin-bottom: 2rem;
     text-align: justify;
-    font-weight: bold;
-    margin-bottom: 50px;
 }
 
-footer {
-    background-image: URL("../resources/BANNER\ Y\ LGOGOS-04.jpg");
-    color: white;
-    text-align: center;
-    padding: 30px 5%;
-    background-size: cover;
-    background-repeat: no-repeat;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    place-items: center;
+/* Media Queries for different screen sizes */
+@media (max-width: 992px) {
+    .container-title {
+        width: 95%;
+        padding: 1.25rem;
+    }
 }
 
-.footer-logo img {
-    height: 80px;
-    max-width: 100%;
-}
-
-.link-media {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-.link-media a {
-    font-size: clamp(0.8rem, 1vw, 1rem);
-    color: #ffffff;
-    text-decoration: none;
-    transition: color 0.3s;
-}
-
-.link-media a:hover {
-    color: #ff5722;
-}
-
-.social-media {
-    display: flex;
-    gap: 15px;
-    justify-content: center;
-    flex-direction: column;
-}
-
-.icons {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: 15px;
-}
-
-.social-media a {
-    font-size: clamp(1rem, 1.5vw, 1.5rem);
-    color: #ffffff;
-    text-decoration: none;
-    transition: color 0.3s;
-}
-
-.social-media a:hover {
-    color: #252625;
-}
-
-/* Media Queries para diferentes tamaños de pantalla */
 @media (max-width: 768px) {
-    .logos {
-        flex-direction: column;
-        padding: 10px 2%;
+    main {
+        padding: 1.5rem 0;
     }
     
-    .logo img {
-        max-width: 60px;
+    .container-title {
+        width: 90%;
+        padding: 1rem;
     }
     
-    .title {
-        margin-left: 0;
-        width: 200px;
+    .title1 {
+        margin-bottom: 1.5rem;
     }
     
-    nav ul {
-        padding: 0 2%;
+    .title2 {
+        margin: 1.5rem 0 0.75rem;
     }
     
-    nav ul li {
-        margin: 5px 10px;
-    }
-    
-    nav ul li a {
-        font-size: 0.8rem;
-    }
-    
-    .sub {
-        margin-top: -10px;
-    }
-    
-    footer {
-        grid-template-columns: 1fr;
-    }
-    
-    .link-media, .social-media {
-        width: 100%;
+    .content1 {
+        margin-bottom: 1.5rem;
     }
 }
 
 @media (max-width: 480px) {
-    .logos {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;        
+    main {
+        padding: 1rem 0;
     }
     
-    .title {
-        width: 180px;
+    .container-title {
+        width: 95%;
+        padding: 0.75rem;
+        box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
     }
     
-    nav ul li {
-        margin: 5px;
-        list-style: none;
+    .title1 {
+        font-size: clamp(1.3rem, 5vw, 1.8rem);
+        margin-bottom: 1rem;
+        padding-bottom: 0.3rem;
     }
     
-    nav ul li a {
-        font-size: 0.7rem;
-        list-style: none;
+    .title1::after {
+        width: 50px;
+        height: 2px;
     }
     
     .title2 {
-        font-size: clamp(1.2rem, 4vw, 2rem);
+        font-size: clamp(1.1rem, 3vw, 1.4rem);
+        margin: 1.2rem 0 0.5rem;
     }
     
-    .sub {
-        font-size: clamp(0.8rem, 1vw, 1rem);
-        margin-top: 0;
-    }
-    
-    .filters button {
-        margin: 5px;
-        padding: 8px 15px;
-        font-size: 0.8rem;
-    }
-    
-    .candidate {
-        min-width: 150px;
+    .content1 {
+        font-size: clamp(0.9rem, 2vw, 1rem);
+        line-height: 1.5;
+        margin-bottom: 1rem;
     }
 }

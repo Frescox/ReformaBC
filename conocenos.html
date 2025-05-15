@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EleccionesBC</title>
+    <link rel="icon" type="image/png" href="resources/images/logo-preview.png">
+    <link rel="stylesheet" href="css/conócenos.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/chatbot.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="logos">
+            <div class="logo">
+                <img src="resources/images/logo-preview.png" alt="Logo" style="visibility: hidden;">
+            </div>
+            <div class="title">
+                <img src="resources/images/title.png" alt="Poder Judicial de Baja California" style="visibility: hidden;">
+            </div>
+        </div>
+        <div class="nav">
+            <nav>
+                <ul>
+                    <li><a href="index.html">INICIO</a></li>
+                    <li><a href="conocenos.html">CONÓCENOS</a></li>
+                    <li><a href="simulador_votar.html">CÓMO VOTAR</a></li>
+                    <li><a href="ubicar_distrito.html">DÓNDE VOTAR</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <main>
+        <div class="container-title">
+            <h1 class="title1">CONÓCENOS</h1>
+            <h2 class="title2">¿Qué es el poder Judicial?</h2>
+            <p class="content1">El Poder Judicial es el encargado de administrar justicia, interpretar y aplicar las leyes. 
+                                Sus funciones principales son resolver conflictos legales, garantizar el cumplimiento de la Constitución, 
+                                proteger los derechos humanos y hacer cumplir las sentencias. Está conformado por la Corte Suprema, 
+                                juzgados y tribunales, además de jueces y magistrados. Es independiente del Poder Ejecutivo y Legislativo 
+                                para asegurar una justicia imparcial.</p>
+            <h2 class="title2">Estructura del Poder Judicial</h2>
+            <p class="content1">El Poder Judicial se organiza en niveles jerárquicos para administrar justicia de manera 
+                                eficiente. En la cúspide está la Corte Suprema, que es la máxima autoridad y cuyas decisiones
+                                son definitivas. Le siguen los tribunales de apelación, encargados de revisar fallos de tribunales 
+                                inferiores. Luego están los tribunales de primera instancia, que resuelven casos en diferentes áreas como penal, 
+                                civil y laboral. Los jueces y magistrados son quienes dictan sentencias y resuelven conflictos. 
+                                Además, existen órganos auxiliares como defensorías y fiscalías, que apoyan el funcionamiento del sistema judicial.</p>
+        </div>
+    </main>
+    
+    <footer class="site-footer">
+        <div class="footer-container">
+            
+            <div class="footer-column">
+                <h3>Contactos</h3>
+                <ul class="contact-info">
+                    <li><i class="fas fa-envelope"></i> <a href="mailto:luisangellopezgaliica@gmail.com">luisangellopezgaliica@gmail.com</a></li>
+                    <li><i class="fas fa-envelope"></i> <a href="mailto:fponce44@uabc.edu.mx">fponce44@uabc.edu.mx</a></li>
+                    <li><i class="fas fa-envelope"></i> <a href="mailto:shushan.sanchez@uabc.edu.mx">shushan.sanchez@uabc.edu.mx</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Síguenos en Instagram</h3>
+                <div class="social-icons">
+                    <a href="https://www.instagram.com/labtech_movil?igsh=MW43ZXFoY3l3aXk1bw==" target="_blank" aria-label="Instagram Gobierno BC"><i class="fab fa-instagram"></i> @labtech_movil</a>
+                    <a href="https://www.instagram.com/fponcx/profilecard/?igsh=MXgwcXYybW1tZ24zYQ==" target="_blank" aria-label="Instagram Turismo"><i class="fab fa-instagram"></i> @fponcx</a>
+                    <a href="https://www.instagram.com/eterea.ax?igsh=MXdubW1zOTZzcWJxcQ==" target="_blank" aria-label="Instagram Culturas"><i class="fab fa-instagram"></i> @eterea.ax</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="sub-footer">
+            <p>Diseñado y en proceso de desarrollo por estudiantes de FICTEC © 2025 </p>
+        </div>
+    </footer>
+
+    <button class="chat-toggle-btn" id="chat-toggle">
+        <i class="fas fa-comments"></i>
+    </button>
+    
+    <div class="chat-container" id="chat-container">
+        <div class="chat-header">
+            <h2>Asistente Electoral</h2>
+            <p>¡Hola! Puedo guiarte en tus dudas electorales</p>
+        </div>
+        <div class="chat-box" id="chat-box">
+            <div class="message bot-message">
+                ¡Que tal! Soy tu asistente electoral virtual. ¿Qué tema quieres conocer?
+                <div class="quick-replies">
+                    <button class="quick-reply-btn" onclick="handleQuickReply('info')">ℹ️ Información general</button>
+                    <button class="quick-reply-btn" onclick="handleQuickReply('cargos')">🧑‍⚖️ Cargos a elegir</button>
+                    <button class="quick-reply-btn" onclick="handleQuickReply('sistema')">⚖️ Sistema judicial Mexicano</button>
+                    <button class="quick-reply-btn" onclick="handleQuickReply('requisitos')">📋 Requisitos para votar</button>
+                </div>
+            </div>
+            <div class="typing-indicator">
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+            </div>
+        </div>
+        <div class="input-area">
+            <input type="text" id="user-input" placeholder="Escribe tu pregunta aquí...">
+            <button class="send-btn" onclick="sendMessage()">➤</button>
+        </div>
+    </div>
+
+    <script src="javascript/funciones.js"></script>
+    <script src="javascript/chatbot.js"></script>
+</body>
+</html>

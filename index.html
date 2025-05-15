@@ -2,9 +2,11 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Elección Judicial 2025</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>EleccionesBC</title>
+    <link rel="icon" type="image/png" href="resources/images/logo-preview.png">
     <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/base.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
@@ -13,84 +15,23 @@
     <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="css/chatbot.css" rel="stylesheet">
-    <style>
-        .chat-toggle-btn {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background-color: #2f6a3a;
-            color: white;
-            border: none;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            z-index: 999;
-            transition: all 0.3s ease;
-        }
-        
-        .chat-toggle-btn:hover {
-            background-color: #124816;
-            transform: scale(1.05);
-        }
-        
-        .chat-toggle-btn i {
-            font-size: 24px;
-        }
-        
-        .chat-container {
-            position: fixed;
-            bottom: 100px;
-            right: 30px;
-            width: 350px;
-            height: 500px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            z-index: 998;
-            display: none;
-            transition: all 0.3s ease;
-            overflow: hidden;
-        }
-        
-        .chat-container.active {
-            display: flex;
-            flex-direction: column;
-            animation: slideIn 0.3s forwards;
-        }
-        
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-    </style>
 </head>
 <body>
     <header>
         <div class="logos">
             <div class="logo">
-                <img src="resources/logo-preview.png" alt="Logo">
+                <img src="resources/images/logo-preview.png" alt="Logo" style="visibility: hidden;">
             </div>
             <div class="title">
-                <img src="resources/title.png" alt="Poder Judicial de Baja California">
+                <img src="resources/images/title.png" alt="Poder Judicial de Baja California" style="visibility: hidden;">
             </div>
         </div>
         <div class="nav">
             <nav>
                 <ul>
-                    <li><a href="conócenos.html">CONÓCENOS</a></li>
-                    <li><a href="SimuladorVotar.html">CÓMO VOTAR</a></li>
-                    <li><a href="ubicarCasilla.html">DÓNDE VOTAR</a></li>
+                    <li><a href="conocenos.html">CONÓCENOS</a></li>
+                    <li><a href="simulador_votar.html">CÓMO VOTAR</a></li>
+                    <li><a href="ubicar_distrito.html">DÓNDE VOTAR</a></li>
                 </ul>
             </nav>
         </div>
@@ -103,78 +44,46 @@
                 <p class="sub">Elección popular de personas juzgadoras y magistraturas</p>
                 <p class="title3">CONOCE A LOS CANDIDATOS</p>
             </div>
+
+             <!-- Sección para el titulo y filtros -->
             <div class="filters">
-                <div class="city-selector">
-                    <div class="custom-select">
+                <div class="candidature-selector">
+                    <div class="custom-select-candidature">
                         <div class="selected-option">
-                            <span>MUNICIPIO</span>
+                            <span>CANDIDATURA</span>
                             <i class="fas fa-chevron-down"></i>
                         </div>
-                        <div class="options">
-                            <div class="option" data-value="mexicali">
-                                Mexicali                        </div>
-                            <div class="option" data-value="tijuana">
-                                Tijuana                        </div>
-                            <div class="option" data-value="ensenada">
-                                Ensenada                        </div>
-                            <div class="option" data-value="tecate">
-                                Tecate                        </div>
-                            <div class="option" data-value="rosarito">
-                                Rosarito                        </div>
+                        <div class="options" id="candidatura-options">
+                            <div class="option" data-value="ministro">Ministro/a</div>
+                            <div class="option" data-value="magistrado">Magistrado/a</div>
+                            <div class="option" data-value="juez">Jueces/zas</div>
                         </div>
                     </div>
                 </div>
-                <div class="city-selector">
-                    <div class="custom-select">
+        
+                <div class="cargo-selector">
+                    <div class="custom-select-cargo">
                         <div class="selected-option">
-                            <span>TIPO</span>
+                            <span>CARGO/S</span>
                             <i class="fas fa-chevron-down"></i>
                         </div>
-                        <div class="options">
-                            <div class="option" data-value="juez">
-                                Juez
-                                <div class="tooltip">
-                                    Un <strong>Juez</strong> es un funcionario público que imparte justicia en casos específicos, resolviendo disputas y aplicando la ley.
-                                </div>
-                            </div>
-                            <div class="option" data-value="magistrado">
-                                Magistrado
-                                <div class="tooltip">
-                                    Un <strong>Magistrado</strong> es un juez de mayor jerarquía que forma parte de un tribunal colegiado y decide en casos más complejos.
-                                </div>
-                            </div>
+                        <div class="options" id="cargo-options">
+                            <!-- cargos de vienen desde la db-->
                         </div>
                     </div>
                 </div>
             </div>
+        </section>        
+        
+        <!-- Sección para candidatos -->
+        <section class="candidates">
+            <div class="loading">
+                <i class="fas fa-spinner"></i>
+            </div>
+            <!-- Los candidatos se cargarán aqui desde la db -->
         </section>
         
-        <section class="candidates">
-            <div class="candidate">
-                <img src="resources/candidate_hugo.jpg" alt="Lic. Alejandro Ortega">
-                <h2 class="name">Hugo Ortiz Aguilar</h2>
-                <h2 class="type" style="display: none;">Ministro</h2>
-                <p>Candidato a Ministro de la Suprema Corte de Justicia de la Nación</p>
-            </div>
-            <div class="candidate">
-                <img src="resources/candidate_ariadna.png" alt="Lic. Natalia Juárez">
-                <h2 class="name">Ariadna Camacho Contreras</h2>
-                <h2 class="type" style="display: none;">Magistratura</h2>
-                <p>Candidata a Magistratura Tribunal de Diciplina Judicial</p>
-            </div>
-            <div class="candidate">
-                <img src="resources/candidate_cesar.png" alt="Lic. Valeria Sánchez" >
-                <h2 class="name">Cesar Lorenzo Wong Meraz</h2>
-                <h2 class="type" style="display: none;">Magistratura</h2>
-                <p>Candidato a Magistratura de la Sala Superior del Tribunal Electoral del DPJ</p>
-            </div>
-            <div class="candidate">
-                <img src="resources/candidate_juna.png" alt="Lic. Alejandro Ortega">
-                <h2 class="name">Juna Hera Andromeda</h2>
-                <h2 class="type" style="display: none;">Ministro</h2>
-                <p>Candidata a Magistratura de Tribunales Colegiales de Circuito</p>
-            </div>
-        </section>
+        
         <div id="video-modal" class="video-modal">
             <div class="video-container">
                 <div class="close-btn">&times;</div>
@@ -186,19 +95,25 @@
                 </div>
                 
                 <div class="content-area">
-                    <!-- Video section (left side) -->
                     <div class="video-wrapper">
                         <video id="candidate-video" controls>
-                            <source src="" type="video/mp4">
+                            <source src="resources/videos/0313-mute.mp4" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                     </div>
-                    
-                    <!-- PDF section (right side) -->
-                    <div class="pdf-container">
-                        <iframe class="candidate_data" id="myIframe" src="resources/candidate_ariadna.png"></iframe>
+
+                    <div class="navigation-buttons">
+                        <button id="prev-candidate" class="nav-btn prev-btn">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button id="next-candidate" class="nav-btn next-btn">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
                     </div>
                     
+                    <div class="pdf-container" id="pdfContainer">
+                        <!-- Iframe o la imagen -->
+                    </div>                    
                 </div>
             </div>
         </div>
@@ -266,24 +181,31 @@
         </div>
     </main>
 
-    <footer>
-        <div class="footer-logo">
-            <img src="resources/BCgob.png" alt="Gobierno de Baja California">
-        </div>
-        <div class="link-media">
-            <a href="https://www.bajacalifornia.gob.mx" target="_blank">Portal Oficial del Gobierno de Baja California</a>
-            <a href="https://www.llave.bajacalifornia.gob.mx/" target="_blank">Llave BC - Trámites y Servicios</a>
-            <a href="https://periodicooficial.ebajacalifornia.gob.mx/oficial/consultaPublicaciones.jsp" target="_blank">Periódico Oficial del Estado de Baja California</a>
-        </div>        
-        <div class="social-media">
-            <a>Síguenos</a>
-            <div class="icons">
-                <a href="https://www.facebook.com/BC.Gobierno/" target="_blank"><i class="fab fa-facebook"></i></a>
-                <a href="https://www.tiktok.com/@marinadelpilarbc?lang=es" target="_blank"><i class="fab fa-tiktok"></i></a>
-                <a href="https://www.instagram.com/BCGobierno/" target="_blank"><i class="fab fa-instagram"></i></a>
-                <a href="https://www.youtube.com/@GobiernodeBajaCalifornia" target="_blank"><i class="fab fa-youtube"></i></a>
+    <footer class="site-footer">
+        <div class="footer-container">
+            
+            <div class="footer-column">
+                <h3>Contactos</h3>
+                <ul class="contact-info">
+                    <li><i class="fas fa-envelope"></i> <a href="mailto:luisangellopezgaliica@gmail.com">luisangellopezgaliica@gmail.com</a></li>
+                    <li><i class="fas fa-envelope"></i> <a href="mailto:fponce44@uabc.edu.mx">fponce44@uabc.edu.mx</a></li>
+                    <li><i class="fas fa-envelope"></i> <a href="mailto:shushan.sanchez@uabc.edu.mx">shushan.sanchez@uabc.edu.mx</a></li>
+                </ul>
             </div>
-        </div>   
+            
+            <div class="footer-column">
+                <h3>Síguenos en Instagram</h3>
+                <div class="social-icons">
+                    <a href="https://www.instagram.com/labtech_movil?igsh=MW43ZXFoY3l3aXk1bw==" target="_blank" aria-label="Instagram Gobierno BC"><i class="fab fa-instagram"></i> @labtech_movil</a>
+                    <a href="https://www.instagram.com/fponcx/profilecard/?igsh=MXgwcXYybW1tZ24zYQ==" target="_blank" aria-label="Instagram Turismo"><i class="fab fa-instagram"></i> @fponcx</a>
+                    <a href="https://www.instagram.com/eterea.ax?igsh=MXdubW1zOTZzcWJxcQ==" target="_blank" aria-label="Instagram Culturas"><i class="fab fa-instagram"></i> @eterea.ax</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="sub-footer">
+            <p>Diseñado y en proceso de desarrollo por estudiantes de FICTEC © 2025 </p>
+        </div>
     </footer>
 
     <button class="chat-toggle-btn" id="chat-toggle">
@@ -318,56 +240,8 @@
     </div>
 
     <script src="javascript/chatbot.js"></script>
-    <script src="javascript/index.js"></script>
     <script src="javascript/funciones.js"></script>
     <script src="javascript/aprendamos.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const chatToggle = document.getElementById('chat-toggle');
-            const chatContainer = document.getElementById('chat-container');
-            
-            chatToggle.addEventListener('click', function() {
-                chatContainer.classList.toggle('active');
-                
-                const icon = chatToggle.querySelector('i');
-                if (chatContainer.classList.contains('active')) {
-                    icon.classList.remove('fa-comments');
-                    icon.classList.add('fa-times');
-                } else {
-                    icon.classList.remove('fa-times');
-                    icon.classList.add('fa-comments');
-                }
-            });
-            
-            document.addEventListener('click', function(event) {
-                if (!chatContainer.contains(event.target) && 
-                    !chatToggle.contains(event.target) &&
-                    chatContainer.classList.contains('active')) {
-                    chatContainer.classList.remove('active');
-                    
-                    const icon = chatToggle.querySelector('i');
-                    icon.classList.remove('fa-times');
-                    icon.classList.add('fa-comments');
-                }
-            });
-            
-            chatContainer.addEventListener('click', function(event) {
-                event.stopPropagation();
-            });
-        });
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const logo = document.querySelector('.logo'); 
-            if (logo) {
-                logo.addEventListener("click", function() {
-                    location.reload(); 
-                });
-            } else {
-                console.error("El elemento con el selector '#logo' no se encontró.");
-            }
-        });
-    </script>
-
+    <script src="javascript/candidatos.js"></script>
 </body>
 </html>

@@ -9,11 +9,6 @@
     --error-color: #F44336;
 }
 
-@font-face {
-    font-family: 'GMX';
-    src: url('../resources/gmx-regular-wisabo/GMX-Regular.otf') format('opentype')
-}
-
 body {
     font-family: 'GMX-Regular', sans-serif;
     margin: 0;
@@ -22,97 +17,6 @@ body {
     flex-direction: column;
     min-height: 100vh;
     background-color: #f4f4f4;
-}
-
-header {
-    font-family: "Lora", serif;
-    background-image: URL("../resources/BANNER\ Y\ LGOGOS-04.jpg");
-    color: white;
-    width: 100%;
-    text-align: center;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-}
-
-.logos {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 10px 5%;
-}
-
-.logo {
-    display: flex;
-    margin-bottom: 10px;
-    margin-top: 10px;
-}
-
-.logo img {
-    width: 100%;
-    max-width: 80px;
-}
-
-.title {
-    margin-top: 15px;
-    display: flex;
-    width: 250px;
-    max-width: 100%;
-    margin-left: 20px;
-}
-
-.title img {
-    width: 100%;
-}
-
-.nav {
-    background-color: #0e2601;
-    width: 100%;
-    display: flex;
-    padding: 5px 0;
-    justify-content: center;
-}
-
-nav ul {
-    margin: 0;
-    padding: 0 5%;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    width: 100%;
-}
-
-nav ul li {
-    position: relative;
-    margin: 5px 15px;
-    padding: 5px;
-}
-
-nav ul li::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: white;
-    transform: scaleX(0);
-    transition: transform 0.3s ease-in-out;
-}
-
-nav ul li:hover::after {
-    transform: scaleX(1);
-}
-
-nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 0.9rem;
 }
 
 .container {
@@ -125,16 +29,6 @@ nav ul li a {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-}
-
-.logo i {
-    font-size: 2rem;
-    margin-right: 10px;
 }
 
 h1 {
@@ -150,67 +44,6 @@ main {
     display: grid;
     grid-template-columns: 1fr;
     gap: 30px;
-}
-
-footer {
-    background-image: URL("../resources/BANNER\ Y\ LGOGOS-04.jpg");
-    color: white;
-    text-align: center;
-    padding: 30px 5%;
-    background-size: cover;
-    background-repeat: no-repeat;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    place-items: center;
-}
-
-.footer-logo img {
-    height: 80px;
-    max-width: 100%;
-}
-
-.link-media {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-.link-media a {
-    font-size: clamp(0.8rem, 1vw, 1rem);
-    color: #ffffff;
-    text-decoration: none;
-    transition: color 0.3s;
-}
-
-.link-media a:hover {
-    color: #ff5722;
-}
-
-.social-media {
-    display: flex;
-    gap: 15px;
-    justify-content: center;
-    flex-direction: column;
-}
-
-.icons {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: 15px;
-}
-
-.social-media a {
-    font-size: clamp(1rem, 1.5vw, 1.5rem);
-    color: #ffffff;
-    text-decoration: none;
-    transition: color 0.3s;
-}
-
-.social-media a:hover {
-    color: #252625;
 }
 
 @media (min-width: 768px) {
@@ -502,6 +335,19 @@ footer {
     .link-media, .social-media {
         width: 100%;
     }
+
+    #map-container {
+        height: 600px;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        display: block;
+    }
+    
+    #map {
+        height: 100%;
+        width: 100%;
+    }
 }
 
 @media (max-width: 480px) {
@@ -526,4 +372,16 @@ footer {
         list-style: none;
     }
     
+    #map-container {
+        height: 600px;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        display: block;
+    }
+    
+    #map {
+        height: 100%;
+        width: 100%;
+    }
 }
